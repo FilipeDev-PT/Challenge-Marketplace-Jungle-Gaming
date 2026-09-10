@@ -1,0 +1,93 @@
+@import 'tailwindcss';
+@import '@fontsource/roboto-mono/latin-400.css';
+@import '@fontsource/roboto-mono/latin-500.css';
+@import '@fontsource/roboto-mono/latin-700.css';
+
+@theme {
+  --font-sans: 'Roboto Mono', ui-monospace, monospace;
+  --font-mono: 'Roboto Mono', ui-monospace, monospace;
+
+  --color-primary: #d28a4c;
+  --color-primary-light: #dd9a5f;
+  --color-primary-dark: #c47b3e;
+  --color-amber: #e3a44e;
+  --color-text-coral: #f0805f;
+  --color-foreground: #f5f1eb;
+  --color-background-elevated: #fbfbfb;
+  --color-secondary: #b39463;
+  --color-text-muted: #b0916a;
+  --color-surface-card: #241612;
+  --color-surface-raised: #2f1d15;
+  --color-ink: #140d0a;
+  --color-ink-deep: #140d0a;
+  --color-ink-soft: #1c110c;
+  --color-surface-dark: #38220f;
+  --color-border: #3f2319;
+  --color-border-soft: #55321f;
+  --color-gray-light: #ededed;
+  --color-success: #00a66c;
+  --color-error: #ed1b2e;
+  --color-text-primary: #f7f3ec;
+  --color-text-secondary: #cfb28c;
+  --color-text-accent: #e89b55;
+  --color-logo-orange: #ff641a;
+
+  --animate-shimmer: shimmer 1.6s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    background: var(--color-ink-deep);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
