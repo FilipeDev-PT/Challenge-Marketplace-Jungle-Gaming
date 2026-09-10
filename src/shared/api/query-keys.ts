@@ -1,0 +1,15 @@
+export const queryKeys = {
+  session: ['session'] as const,
+  home: ['home'] as const,
+  footer: ['footer'] as const,
+  accountNav: ['account-nav'] as const,
+  facets: ['nfts', 'facets'] as const,
+  nfts: (params: Record<string, unknown>) => ['nfts', params] as const,
+  nft: (id: string) => ['nft', id] as const,
+  favorites: (userId: string | null) => ['favorites', userId] as const,
+  cart: (ownerKey: string) => ['cart', ownerKey] as const,
+  quote: (ownerKey: string, coupon: string | null) => ['quote', ownerKey, coupon] as const,
+  order: (id: string) => ['order', id] as const,
+  profile: (userId: string) => ['profile', userId] as const,
+  wallets: (userId: string) => ['wallets', userId] as const,
+}
