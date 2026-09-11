@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="NFT 04">
+  <rect width="512" height="512" fill="#140d0a"/>
+  <path d="M80 360 Q256 40 432 360 Z" fill="#7c5cff"/>
+  <rect x="180" y="300" width="152" height="18" fill="#f7f3ec"/>
+  <text x="256" y="470" text-anchor="middle" fill="#cfb28c" font-family="monospace" font-size="28">04</text>
+</svg>

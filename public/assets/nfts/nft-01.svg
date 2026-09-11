@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="NFT 01">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1b3d2f"/>
+      <stop offset="100%" stop-color="#d28a4c"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="#140d0a"/>
+  <circle cx="256" cy="220" r="120" fill="url(#g)"/>
+  <rect x="156" y="320" width="200" height="28" rx="8" fill="#f7f3ec" opacity=".85"/>
+  <text x="256" y="470" text-anchor="middle" fill="#cfb28c" font-family="monospace" font-size="28">01</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="NFT 05">
+  <rect width="512" height="512" fill="#0e0907"/>
+  <circle cx="180" cy="200" r="90" fill="#ed1b2e"/>
+  <circle cx="330" cy="260" r="110" fill="#d28a4c" opacity=".9"/>
+  <text x="256" y="470" text-anchor="middle" fill="#cfb28c" font-family="monospace" font-size="28">05</text>
+</svg>
