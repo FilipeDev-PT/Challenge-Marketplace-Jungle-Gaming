@@ -1,0 +1,15 @@
+{
+  "formFactors": ["mobile", "desktop"],
+  "pages": ["/", "/nfts/nft-01"],
+  "runsPerCombo": 3,
+  "aggregation": "median",
+  "categories": ["performance", "accessibility", "best-practices", "seo"],
+  "targets": {
+    "performance": 90,
+    "accessibility": 95,
+    "bestPractices": 95,
+    "seo": 90
+  },
+  "metrics": ["largest-contentful-paint", "cumulative-layout-shift", "total-blocking-time"],
+  "build": "vite production preview with VITE_ENABLE_MSW=true"
+}
