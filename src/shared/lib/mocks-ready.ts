@@ -1,6 +1,7 @@
+import { MSW_ENABLED } from '@/shared/lib/msw-enabled'
+
 let settle: (() => void) | null = null
-const mswEnabled = import.meta.env.VITE_ENABLE_MSW === 'true'
-export const mocksReady: Promise<void> = mswEnabled
+export const mocksReady: Promise<void> = MSW_ENABLED
   ? new Promise<void>((resolve) => {
       settle = resolve
     })

@@ -11,11 +11,7 @@ if (path === '/') {
 } else if (path.startsWith('/nfts/')) {
   void import('@/features/nft-detail/pages/NftDetailPage')
 }
-requestAnimationFrame(() => {
-  window.setTimeout(() => {
-    void enableMocking()
-  }, 500)
-})
+void enableMocking()
 const root = document.getElementById('root')
 if (!root) throw new Error('Root element not found')
 createRoot(root).render(

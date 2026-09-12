@@ -1,4 +1,5 @@
 import { markMocksReady } from '@/shared/lib/mocks-ready'
+import { MSW_ENABLED } from '@/shared/lib/msw-enabled'
 
 function mockServiceWorkerUrl(): string {
   const base = import.meta.env.BASE_URL || '/'
@@ -8,7 +9,7 @@ function mockServiceWorkerUrl(): string {
 
 export async function enableMocking(): Promise<void> {
   try {
-    if (import.meta.env.VITE_ENABLE_MSW !== 'true') {
+    if (!MSW_ENABLED) {
       return
     }
     const { worker } = await import('@/mocks/browser')
