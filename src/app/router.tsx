@@ -8,6 +8,7 @@ import {
   redirect,
   useNavigate,
   useRouterState,
+  type ErrorComponentProps,
 } from '@tanstack/react-router'
 
 import { AuthProvider, useAuth } from '@/app/providers/AuthProvider'
@@ -29,6 +30,7 @@ import { Button } from '@/components/ui/button'
 import { parseAuthSearch } from '@/features/auth/model/parseAuthSearch'
 import { parseCatalogSearch } from '@/features/catalog/model/parseCatalogSearch'
 import { AppShell } from '@/features/layout/AppShell'
+import { isChunkLoadError, reloadOnceForChunkError } from '@/shared/lib/chunk-load'
 import { authFromForPath } from '@/shared/lib/navigation'
 import { getStoredToken } from '@/shared/lib/session-storage'
 
@@ -118,8 +120,29 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
   return children
 }
 
+function RouteError({ error }: ErrorComponentProps) {
+  useEffect(() => {
+    if (isChunkLoadError(error)) {
+      reloadOnceForChunkError()
+    }
+  }, [error])
+
+  return (
+    <div className="mx-auto flex min-h-[50vh] max-w-lg flex-col items-center justify-center gap-4 px-4 text-center">
+      <h1 className="text-2xl font-bold text-text-primary">Não foi possível carregar a página</h1>
+      <p className="text-text-secondary">
+        Uma atualização do site pode ter interrompido este carregamento. Tente de novo.
+      </p>
+      <Button type="button" onClick={() => window.location.reload()}>
+        Tentar novamente
+      </Button>
+    </div>
+  )
+}
+
 const rootRoute = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
+  errorComponent: RouteError,
   notFoundComponent: () => (
     <div className="mx-auto flex min-h-[50vh] max-w-lg flex-col items-center justify-center gap-4 px-4 text-center">
       <h1 className="text-2xl font-bold text-text-primary">Página não encontrada</h1>
@@ -280,6 +303,7 @@ export const router = createRouter({
   routeTree,
   context: { queryClient },
   defaultPreload: 'intent',
+  defaultErrorComponent: RouteError,
 })
 
 declare module '@tanstack/react-router' {

@@ -35,7 +35,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!api/|socket.io/).*)",
+      "source": "/((?!api/|socket.io/|assets/|mockServiceWorker\\.js).*)",
       "destination": "/index.html"
     }
   ]
