@@ -4,6 +4,7 @@ import { cn } from '@/shared/lib/cn'
 export type BreadcrumbItem = {
   label: string
   to?: string
+  hash?: string
   href?: string
   current?: boolean
 }
@@ -19,7 +20,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
         let node: ReactNode
         if (item.to) {
           node = (
-            <Link to={item.to} className="hover:text-text-accent">
+            <Link to={item.to} hash={item.hash} resetScroll={false} className="hover:text-text-accent">
               {item.label}
             </Link>
           )

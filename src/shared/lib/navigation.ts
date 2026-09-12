@@ -21,6 +21,19 @@ export function resolveAuthCloseHref(from: unknown, redirect: unknown): string {
   return authFromForPath(candidate)
 }
 
+export const CATALOG_SECTION_ID = 'catalog'
+
+export function isCatalogHash(hash: string | undefined): boolean {
+  return hash === 'catalog' || hash === '#catalog'
+}
+
+export function scrollToCatalogSection(behavior: ScrollBehavior = 'smooth'): void {
+  document.getElementById(CATALOG_SECTION_ID)?.scrollIntoView({
+    behavior,
+    block: 'start',
+  })
+}
+
 type HrefNavigate = (opts: {
   href: string
   replace?: boolean

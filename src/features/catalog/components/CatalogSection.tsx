@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useRouterState } from '@tanstack/react-router'
 import { CatalogGridSkeleton } from '@/components/kurio/ShimmerSkeleton'
 import {
   CatalogToolbar,
@@ -17,6 +19,7 @@ import { pageNumbers } from '@/features/catalog/lib/catalog-view'
 import type { Facets, HomeContent } from '@/shared/api/cms-contracts'
 import type { Nft } from '@/shared/api/contracts'
 import { cn } from '@/shared/lib/cn'
+import { CATALOG_SECTION_ID, isCatalogHash, scrollToCatalogSection } from '@/shared/lib/navigation'
 type CatalogSectionProps = {
   search: CatalogSearch
   resolvedPage: number
@@ -61,6 +64,12 @@ export function CatalogSection({
   onClearFilters,
   onRetryCatalog,
 }: CatalogSectionProps) {
+  const hash = useRouterState({ select: (s) => s.location.hash })
+  useEffect(() => {
+    if (!isCatalogHash(hash)) return
+    const id = window.requestAnimationFrame(() => scrollToCatalogSection())
+    return () => window.cancelAnimationFrame(id)
+  }, [hash])
   const pages = pageNumbers(resolvedPage, totalPages)
   const collections = facets?.collections ?? []
   const networks = (facets?.networks ?? []).filter(
@@ -85,7 +94,7 @@ export function CatalogSection({
   const leftCol = catalogItems?.filter((_, i) => i % 2 === 0) ?? []
   const rightCol = catalogItems?.filter((_, i) => i % 2 === 1) ?? []
   return (
-    <section id="catalog" className="mx-auto mt-4 w-full max-w-[1200px] scroll-mt-8 md:mt-20">
+    <section id={CATALOG_SECTION_ID} className="mx-auto mt-4 w-full max-w-[1200px] scroll-mt-8 md:mt-20">
       <h2 className="sr-only">Mercado de NFTs</h2>
       <div className="flex flex-col gap-6 lg:flex-row lg:gap-[48px] md:gap-12">
         <div className="hidden w-[310px] shrink-0 flex-col gap-6 lg:flex">

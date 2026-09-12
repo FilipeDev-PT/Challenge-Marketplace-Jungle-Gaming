@@ -9,7 +9,7 @@ export function MarketBreadcrumb({ current, className }: MarketBreadcrumbProps) 
       className={className}
       items={[
         { label: 'Início', to: '/' },
-        { label: 'Mercado', href: '/#catalog' },
+        { label: 'Mercado', to: '/', hash: 'catalog' },
         ...(current ? [{ label: current, current: true as const }] : []),
       ]}
     />

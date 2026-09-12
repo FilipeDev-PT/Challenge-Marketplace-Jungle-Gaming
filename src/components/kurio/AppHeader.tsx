@@ -60,8 +60,11 @@ export function AppHeader({
           >
             Início
           </Link>
-          <a
-            href="/#catalog"
+          <Link
+            to="/"
+            hash="catalog"
+            resetScroll={false}
+            search={(prev) => prev}
             className={cn(
               'relative text-base focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
               activeNav === 'mercado'
@@ -70,7 +73,7 @@ export function AppHeader({
             )}
           >
             Mercado
-          </a>
+          </Link>
           <button
             type="button"
             className="text-base font-normal text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
