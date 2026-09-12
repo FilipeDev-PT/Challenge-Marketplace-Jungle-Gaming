@@ -1,0 +1,9 @@
+e2e
+playwright-report
+playwright.config.ts
+test-results
+blob-report
+audits
+.cursor
+.vscode
+agent-transcripts
