@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="KURIO — marketplace de NFTs curados. Descubra, colecione e negocie arte digital."
+    />
+    <title>KURIO — Marketplace de NFTs</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #140d0a;
+      }
+      #kurio-lcp-boot {
+        position: fixed;
+        z-index: 40;
+        object-fit: cover;
+        background: #241612;
+        pointer-events: none;
+      }
+      html[data-lcp='home'] #kurio-lcp-boot {
+        top: 120px;
+        right: max(16px, calc(50vw - 584px));
+        width: min(450px, 42vw);
+        height: auto;
+        aspect-ratio: 1;
+        border-radius: 24px;
+      }
+      @media (max-width: 767px) {
+        html[data-lcp='home'] #kurio-lcp-boot {
+          top: 72px;
+          right: 16px;
+          width: 200px;
+          height: 200px;
+          border-radius: 20px;
+        }
+      }
+      html[data-lcp='detail'] #kurio-lcp-boot {
+        top: 56px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(404px, 92vw);
+        height: auto;
+        aspect-ratio: 1;
+        border-radius: 22px;
+      }
+      @media (min-width: 768px) {
+        html[data-lcp='detail'] #kurio-lcp-boot {
+          left: max(24px, calc(50vw - 576px));
+          transform: none;
+          top: 96px;
+        }
+      }
+      html[data-lcp-done] #kurio-lcp-boot {
+        display: none;
+      }
+    </style>
+    <script>
+      ;(function () {
+        var path = location.pathname.replace(/\/$/, '') || '/'
+        var href = null
+        if (path === '/') {
+          href = '/assets/hero/featured.webp'
+          document.documentElement.setAttribute('data-lcp', 'home')
+        } else if (path.indexOf('/nfts/') === 0) {
+          href = '/assets/nfts/emerald-ape.webp'
+          document.documentElement.setAttribute('data-lcp', 'detail')
+        }
+        if (!href) return
+        var link = document.createElement('link')
+        link.rel = 'preload'
+        link.as = 'image'
+        link.href = href
+        link.fetchPriority = 'high'
+        document.head.appendChild(link)
+        window.__KURIO_LCP__ = href
+      })()
+    </script>
+  </head>
+  <body>
+    <img
+      id="kurio-lcp-boot"
+      alt=""
+      width="450"
+      height="450"
+      decoding="async"
+      fetchpriority="high"
+      hidden
+    />
+    <div id="root"></div>
+    <script>
+      ;(function () {
+        var img = document.getElementById('kurio-lcp-boot')
+        if (!img || !window.__KURIO_LCP__) {
+          if (img) img.remove()
+          return
+        }
+        img.hidden = false
+        img.src = window.__KURIO_LCP__
+        img.alt =
+          window.__KURIO_LCP__.indexOf('hero') >= 0
+            ? 'NFT em destaque da coleção Kurio'
+            : 'NFT'
+        window.__KURIO_CLEAR_LCP_BOOT__ = function () {
+          document.documentElement.setAttribute('data-lcp-done', '')
+          img.remove()
+        }
+      })()
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
