@@ -90,6 +90,7 @@ export function AppShell() {
           q: searchDraft || undefined,
           page: 1,
         }),
+        resetScroll: false,
       })
     }, 300)
     return () => window.clearTimeout(id)

@@ -142,6 +142,7 @@ const indexRoute = createRoute({
           onSearchChange={(next) => {
             void navigate({
               search: (prev) => ({ ...prev, ...next }),
+              resetScroll: false,
             })
           }}
         />
