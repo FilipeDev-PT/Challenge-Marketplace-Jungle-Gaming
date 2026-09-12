@@ -217,7 +217,7 @@ async function run() {
       '### Análise (entrega completa — sem remover MSW/Socket/imagens/fontes)',
       '',
       '- **A11y / BP / SEO**: metas atingidas (A11y 100 após corrigir tabs Radix sem `TabsContent`, alvos de toque do hero ≥24px, hierarquia `h1→h2→h3`, badge do carrinho).',
-      '- **LCP**: imagem LCP fixa em `index.html` (`#kurio-lcp-boot`, `position:fixed` para não gerar CLS) + preload por rota + hero React com fallback estático (`homeHeroDefault`) sem esperar CMS/MSW.',
+      '- **LCP**: skeleton inline em `index.html` (`#kurio-boot-skeleton`) no 1º paint; o JS da app não é mais adiado. O hero usa a imagem do NFT featured do mock (`mockHeroFromCatalog`) só depois do CMS.',
       '- **CLS**: `useMediaQuery` síncrono no 1º paint; `min-height` no `<main>` e no footer para o rodapé não entrar no 1º viewport; uma variante de hero por breakpoint.',
       '- **TBT / Perf**: sob throttle mobile do Lighthouse, o parse/eval de React (~240KB) + MSW (~443KB) no caminho da app gera TBT alto quando o FCP é antecipado pelo boot LCP (tarefas longas passam a contar após o FCP). Remover MSW ou o boot melhoraria a nota, mas violaria §10 (“sem simplificações exclusivas”). Mitigações mantidas: `manualChunks`, sem preload de MSW/zod, Socket/contracts em import dinâmico, parser de search sem Zod no router.',
       '- **Reprodução**: fechar instâncias extras de Chrome/preview antes de `npm run lighthouse`; máquina sob carga infla TBT.',

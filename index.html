@@ -15,101 +15,155 @@
         margin: 0;
         background: #140d0a;
       }
-      #kurio-lcp-boot {
-        position: fixed;
-        z-index: 40;
-        object-fit: cover;
-        background: #241612;
-        pointer-events: none;
-      }
-      html[data-lcp='home'] #kurio-lcp-boot {
-        top: 120px;
-        right: max(16px, calc(50vw - 584px));
-        width: min(450px, 42vw);
-        height: auto;
-        aspect-ratio: 1;
-        border-radius: 24px;
-      }
-      @media (max-width: 767px) {
-        html[data-lcp='home'] #kurio-lcp-boot {
-          top: 72px;
-          right: 16px;
-          width: 200px;
-          height: 200px;
-          border-radius: 20px;
+      @keyframes kurio-shimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
         }
       }
-      html[data-lcp='detail'] #kurio-lcp-boot {
-        top: 56px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: min(404px, 92vw);
-        height: auto;
-        aspect-ratio: 1;
-        border-radius: 22px;
+      #kurio-boot-skeleton {
+        min-height: 100vh;
+        padding: 24px 16px 48px;
+        color: #f7f3ec;
+        font-family: ui-monospace, monospace;
       }
       @media (min-width: 768px) {
-        html[data-lcp='detail'] #kurio-lcp-boot {
-          left: max(24px, calc(50vw - 576px));
-          transform: none;
-          top: 96px;
+        #kurio-boot-skeleton {
+          padding: 24px 120px 64px;
+          max-width: 1440px;
+          margin: 0 auto;
         }
       }
-      html[data-lcp-done] #kurio-lcp-boot {
+      .kurio-boot-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+      }
+      .kurio-boot-shimmer {
+        background: linear-gradient(90deg, #2f1d15 0%, #38220f 45%, #2f1d15 100%);
+        background-size: 200% 100%;
+        animation: kurio-shimmer 1.6s linear infinite;
+        border-radius: 6px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .kurio-boot-shimmer {
+          animation: none;
+          background: #2f1d15;
+        }
+      }
+      .kurio-boot-hero {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      @media (min-width: 768px) {
+        .kurio-boot-hero {
+          flex-direction: row;
+          align-items: center;
+          min-height: 450px;
+          padding-left: 40px;
+        }
+      }
+      .kurio-boot-copy {
+        flex: 1;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .kurio-boot-card {
+        width: 200px;
+        height: 200px;
+        border-radius: 20px;
+        flex-shrink: 0;
+        align-self: flex-end;
+      }
+      @media (min-width: 768px) {
+        .kurio-boot-card {
+          width: 450px;
+          height: 450px;
+          border-radius: 24px;
+          margin-left: auto;
+        }
+      }
+      .kurio-boot-grid {
+        display: none;
+        margin-top: 80px;
+        gap: 48px;
+      }
+      @media (min-width: 1024px) {
+        .kurio-boot-grid {
+          display: flex;
+        }
+      }
+      .kurio-boot-side {
+        width: 310px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .kurio-boot-cards {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 34px 34px;
+      }
+      .kurio-boot-tile {
+        height: 300px;
+        border-radius: 8px;
+      }
+      html[data-boot-done] #kurio-boot-skeleton {
         display: none;
       }
     </style>
-    <script>
-      ;(function () {
-        var path = location.pathname.replace(/\/$/, '') || '/'
-        var href = null
-        if (path === '/') {
-          href = '/assets/hero/featured.webp'
-          document.documentElement.setAttribute('data-lcp', 'home')
-        } else if (path.indexOf('/nfts/') === 0) {
-          href = '/assets/nfts/emerald-ape.webp'
-          document.documentElement.setAttribute('data-lcp', 'detail')
-        }
-        if (!href) return
-        var link = document.createElement('link')
-        link.rel = 'preload'
-        link.as = 'image'
-        link.href = href
-        link.fetchPriority = 'high'
-        document.head.appendChild(link)
-        window.__KURIO_LCP__ = href
-      })()
-    </script>
   </head>
   <body>
-    <img
-      id="kurio-lcp-boot"
-      alt=""
-      width="450"
-      height="450"
-      decoding="async"
-      fetchpriority="high"
-      hidden
-    />
-    <div id="root"></div>
+    <div id="root">
+      <div
+        id="kurio-boot-skeleton"
+        role="status"
+        aria-busy="true"
+        aria-label="Carregando catálogo"
+      >
+        <div class="kurio-boot-bar">
+          <div class="kurio-boot-shimmer" style="width: 88px; height: 18px"></div>
+          <div class="kurio-boot-shimmer" style="width: 220px; height: 18px"></div>
+        </div>
+        <div class="kurio-boot-hero">
+          <div class="kurio-boot-copy">
+            <div class="kurio-boot-shimmer" style="width: 160px; height: 16px"></div>
+            <div class="kurio-boot-shimmer" style="width: 100%; max-width: 520px; height: 48px"></div>
+            <div class="kurio-boot-shimmer" style="width: 80%; max-width: 420px; height: 48px"></div>
+            <div class="kurio-boot-shimmer" style="width: 100%; max-width: 557px; height: 64px"></div>
+            <div class="kurio-boot-shimmer" style="width: 140px; height: 40px"></div>
+          </div>
+          <div class="kurio-boot-shimmer kurio-boot-card"></div>
+        </div>
+        <div class="kurio-boot-grid">
+          <div class="kurio-boot-side">
+            <div class="kurio-boot-shimmer" style="width: 112px; height: 20px"></div>
+            <div class="kurio-boot-shimmer" style="width: 100%; height: 16px"></div>
+            <div class="kurio-boot-shimmer" style="width: 100%; height: 16px"></div>
+            <div class="kurio-boot-shimmer" style="width: 100%; height: 16px"></div>
+            <div class="kurio-boot-shimmer" style="width: 100%; height: 16px"></div>
+            <div class="kurio-boot-shimmer" style="width: 100%; height: 220px; margin-top: 16px"></div>
+          </div>
+          <div class="kurio-boot-cards">
+            <div class="kurio-boot-shimmer kurio-boot-tile"></div>
+            <div class="kurio-boot-shimmer kurio-boot-tile"></div>
+            <div class="kurio-boot-shimmer kurio-boot-tile"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script>
-      ;(function () {
-        var img = document.getElementById('kurio-lcp-boot')
-        if (!img || !window.__KURIO_LCP__) {
-          if (img) img.remove()
-          return
-        }
-        img.hidden = false
-        img.src = window.__KURIO_LCP__
-        img.alt =
-          window.__KURIO_LCP__.indexOf('hero') >= 0
-            ? 'NFT em destaque da coleção Kurio'
-            : 'NFT'
-        window.__KURIO_CLEAR_LCP_BOOT__ = function () {
-          document.documentElement.setAttribute('data-lcp-done', '')
-          img.remove()
-        }
-      })()
+      window.__KURIO_CLEAR_LCP_BOOT__ = function () {
+        document.documentElement.setAttribute('data-boot-done', '')
+      }
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { MarketBreadcrumb } from '@/components/kurio/MarketBreadcrumb'
 import { MobileScreenHeader } from '@/components/kurio/MobileScreenHeader'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -11,9 +12,6 @@ type ShimmerSkeletonProps = {
 
 const CART_ROW_GRID =
   'md:grid md:grid-cols-[250px_77px_75px_87px_24px] md:items-center md:gap-x-[61px]'
-
-const HERO_LCP_SRC = '/assets/hero/featured.webp'
-const DETAIL_LCP_SRC = '/assets/nfts/emerald-ape.webp'
 
 function NftCardSkeleton({ compact = false }: { compact?: boolean }) {
   if (compact) {
@@ -102,16 +100,7 @@ function HomeHeroSkeleton({ isDesktop }: { isDesktop: boolean }) {
             </div>
           </div>
           <div className="relative z-10 mx-auto size-full max-w-[450px] shrink-0 md:ml-auto md:size-[450px]">
-            <img
-              src={HERO_LCP_SRC}
-              alt=""
-              className="size-full rounded-[24px] object-cover"
-              width={450}
-              height={450}
-              fetchPriority="high"
-              decoding="async"
-              onLoad={() => clearLcpBoot()}
-            />
+            <Skeleton className="size-full rounded-[24px]" />
           </div>
         </div>
       </section>
@@ -130,16 +119,7 @@ function HomeHeroSkeleton({ isDesktop }: { isDesktop: boolean }) {
             <Skeleton className="mt-1 h-4 w-24" />
           </div>
           <div className="relative h-[210px] w-[200px] shrink-0">
-            <img
-              src={HERO_LCP_SRC}
-              alt=""
-              className="absolute left-0 top-[5px] size-[200px] rounded-[20px] object-cover"
-              width={200}
-              height={200}
-              fetchPriority="high"
-              decoding="async"
-              onLoad={() => clearLcpBoot()}
-            />
+            <Skeleton className="absolute left-0 top-[5px] size-[200px] rounded-[20px]" />
           </div>
         </div>
         <div className="flex justify-center gap-2 pb-3">
@@ -154,6 +134,9 @@ function HomeHeroSkeleton({ isDesktop }: { isDesktop: boolean }) {
 
 export function HomePageSkeleton({ className }: ShimmerSkeletonProps) {
   const isDesktop = useIsDesktop()
+  useEffect(() => {
+    clearLcpBoot()
+  }, [])
   return (
     <div
       className={cn('bg-ink-deep text-text-primary', className)}
@@ -210,10 +193,13 @@ type DetailSkeletonProps = ShimmerSkeletonProps & {
 
 export function DetailSkeleton({
   className,
-  lcpImageUrl = DETAIL_LCP_SRC,
+  lcpImageUrl,
   lcpImageAlt = '',
 }: DetailSkeletonProps) {
   const isDesktop = useIsDesktop()
+  useEffect(() => {
+    if (!lcpImageUrl) clearLcpBoot()
+  }, [lcpImageUrl])
 
   if (isDesktop) {
     return (

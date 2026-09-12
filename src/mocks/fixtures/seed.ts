@@ -206,6 +206,22 @@ const FIGMA_CATALOG: CatalogEntry[] = [
       'Golden Signal #160 é um token de utilidade da Kurio Labs. Concede prioridade em drops selecionados, alertas de cunhagem e badge de colecionador. Cunhado na Polygon com taxas baixas e transferência simples.',
   },
 ]
+
+export function mockHeroFromCatalog(): {
+  imageUrl: string
+  imageAlt: string
+  secondaryImageUrl: string
+} {
+  const featured = FIGMA_CATALOG.filter((entry) => entry.featured)
+  const primary = featured[0] ?? FIGMA_CATALOG[0]!
+  const secondary = featured.find((entry) => entry !== primary) ?? FIGMA_CATALOG[1] ?? primary
+  return {
+    imageUrl: FIGMA_IMAGES[primary.imageIndex % FIGMA_IMAGES.length]!,
+    imageAlt: primary.name,
+    secondaryImageUrl: FIGMA_IMAGES[secondary.imageIndex % FIGMA_IMAGES.length]!,
+  }
+}
+
 function buildNfts(): Nft[] {
   const extras = [
     'Aura Coin #011',

@@ -8,9 +8,9 @@ export const homeHeroDefault: HomeContent['hero'] = {
   mobileBody: 'Descubra NFTs selecionados de criadores do mundo todo.',
   ctaLabel: 'EXPLORAR',
   ctaHref: '#catalog',
-  imageUrl: '/assets/hero/featured.webp',
-  secondaryImageUrl: '/assets/nfts/neon-vessel.webp',
-  imageAlt: 'NFT em destaque da coleção Kurio',
+  imageUrl: '',
+  secondaryImageUrl: '',
+  imageAlt: '',
   slideCount: 3,
 }
 export const homeCatalogDefault: HomeContent['catalog'] = {

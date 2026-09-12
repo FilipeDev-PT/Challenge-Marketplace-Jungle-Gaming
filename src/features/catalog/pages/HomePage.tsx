@@ -12,7 +12,6 @@ import { HomeHero } from '@/features/catalog/components/HomeHero'
 import { MobileHomeSearch } from '@/features/catalog/components/MobileHomeSearch'
 import { PromoBanners } from '@/features/catalog/components/PromoBanners'
 import { useHomeCatalog } from '@/features/catalog/hooks/useHomeCatalog'
-import { homeHeroDefault } from '@/shared/content/home-defaults'
 type HomePageProps = {
   search: CatalogSearch
   onSearchChange: (next: Partial<CatalogSearch>) => void
@@ -55,7 +54,6 @@ export function HomePage({ search, onSearchChange }: HomePageProps) {
       q: search.q,
     })
   }
-  const hero = home?.hero ?? homeHeroDefault
   if (homeQuery.isError && !home) {
     return (
       <div className="py-10">
@@ -67,10 +65,8 @@ export function HomePage({ search, onSearchChange }: HomePageProps) {
       </div>
     )
   }
-  const isInitialLoad =
-    (!home && !homeQuery.isError) ||
-    (catalogQuery.isLoading && !catalogQuery.data && !catalogQuery.isError)
-  if (isInitialLoad) {
+  const catalogPending = catalogQuery.isLoading && !catalogQuery.data && !catalogQuery.isError
+  if (!home || catalogPending) {
     return <HomePageSkeleton />
   }
   return (
@@ -86,35 +82,31 @@ export function HomePage({ search, onSearchChange }: HomePageProps) {
           priceBounds={priceBounds}
           onPatchFilters={patchFilters}
         />
-        <HomeHero hero={hero} />
+        <HomeHero hero={home.hero} />
       </div>
-      {home ? (
-        <>
-          <CatalogSection
-            search={search}
-            resolvedPage={resolved.page}
-            home={home}
-            facets={facetsQuery.data}
-            facetsLoading={facetsQuery.isLoading}
-            priceBounds={priceBounds}
-            filterValue={filterValue}
-            featured={featured}
-            catalogItems={catalogQuery.data?.items}
-            catalogLoading={catalogQuery.isLoading}
-            catalogError={catalogQuery.isError}
-            fetchingCatalog={fetchingCatalog}
-            totalPages={catalogQuery.data?.totalPages ?? 1}
-            onSearchChange={onSearchChange}
-            onPatchFilters={patchFilters}
-            onClearFilters={clearFilters}
-            onRetryCatalog={() => void catalogQuery.refetch()}
-          />
-          <div className="hidden md:block">
-            <PromoBanners promos={home.promos} />
-            <BlogSection blog={home.blog} />
-          </div>
-        </>
-      ) : null}
+      <CatalogSection
+        search={search}
+        resolvedPage={resolved.page}
+        home={home}
+        facets={facetsQuery.data}
+        facetsLoading={facetsQuery.isLoading}
+        priceBounds={priceBounds}
+        filterValue={filterValue}
+        featured={featured}
+        catalogItems={catalogQuery.data?.items}
+        catalogLoading={catalogQuery.isLoading}
+        catalogError={catalogQuery.isError}
+        fetchingCatalog={fetchingCatalog}
+        totalPages={catalogQuery.data?.totalPages ?? 1}
+        onSearchChange={onSearchChange}
+        onPatchFilters={patchFilters}
+        onClearFilters={clearFilters}
+        onRetryCatalog={() => void catalogQuery.refetch()}
+      />
+      <div className="hidden md:block">
+        <PromoBanners promos={home.promos} />
+        <BlogSection blog={home.blog} />
+      </div>
     </div>
   )
 }

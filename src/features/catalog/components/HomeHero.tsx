@@ -16,7 +16,7 @@ export function HomeHero({ hero }: HomeHeroProps) {
     ? hero.mobileTitleLines
     : ['SEJA DONO DA', 'CULTURA DIGITAL']
   const mobileBody = hero.mobileBody ?? 'Descubra NFTs selecionados de criadores do mundo todo.'
-  const secondaryImage = hero.secondaryImageUrl ?? '/assets/nfts/neon-vessel.webp'
+  const secondaryImage = hero.secondaryImageUrl
   if (isDesktop) {
     return (
       <section className="mx-auto w-full max-w-[1200px] pt-5">
@@ -130,15 +130,17 @@ export function HomeHero({ hero }: HomeHeroProps) {
               decoding="async"
               onLoad={() => clearLcpBoot()}
             />
-            <img
-              src={secondaryImage}
-              alt=""
-              className="absolute bottom-0 left-3.5 size-[58px] rounded-full border-2 border-[#2a1c14] object-cover"
-              width={58}
-              height={58}
-              loading="lazy"
-              aria-hidden
-            />
+            {secondaryImage ? (
+              <img
+                src={secondaryImage}
+                alt=""
+                className="absolute bottom-0 left-3.5 size-[58px] rounded-full border-2 border-[#2a1c14] object-cover"
+                width={58}
+                height={58}
+                loading="lazy"
+                aria-hidden
+              />
+            ) : null}
           </div>
         </div>
         <div

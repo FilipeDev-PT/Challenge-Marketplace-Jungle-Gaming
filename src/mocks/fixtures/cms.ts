@@ -4,8 +4,12 @@ import {
   homeFeaturedBannerDefault,
   homeHeroDefault,
 } from '@/shared/content/home-defaults'
+import { mockHeroFromCatalog } from '@/mocks/fixtures/seed'
 export const homeContentSeed: HomeContent = {
-  hero: homeHeroDefault,
+  hero: {
+    ...homeHeroDefault,
+    ...mockHeroFromCatalog(),
+  },
   featuredBanner: homeFeaturedBannerDefault,
   catalog: homeCatalogDefault,
   promos: [
