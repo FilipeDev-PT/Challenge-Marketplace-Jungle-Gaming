@@ -10,7 +10,7 @@ function Slider({ className, ...props }: React.ComponentProps<typeof SliderPrimi
   return (
     <SliderPrimitive.Root
       data-slot="slider"
-      className={cn('relative flex w-full touch-none select-none items-center', className)}
+      className={cn('relative flex w-full cursor-pointer touch-none select-none items-center', className)}
       {...props}
     >
       <SliderPrimitive.Track className="relative h-1 w-full grow overflow-hidden rounded-full bg-border">
@@ -19,7 +19,7 @@ function Slider({ className, ...props }: React.ComponentProps<typeof SliderPrimi
       {Array.from({ length: thumbCount }).map((_, index) => (
         <SliderPrimitive.Thumb
           key={index}
-          className="block size-[15px] rounded-full border-[3px] border-primary bg-primary shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50"
+          className="block size-[15px] cursor-pointer rounded-full border-[3px] border-primary bg-primary shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-50"
         />
       ))}
     </SliderPrimitive.Root>
