@@ -25,9 +25,11 @@ export { NftCard } from './NftCard'
 export { PriceEth } from './PriceEth'
 export { QuantityStepper } from './QuantityStepper'
 export {
+  CartPageSkeleton,
   CartSummarySkeleton,
   CatalogGridSkeleton,
   DetailSkeleton,
+  HomePageSkeleton,
   ShimmerSkeleton,
 } from './ShimmerSkeleton'
 export { toastUnavailable, UnavailableAction, UNAVAILABLE_MESSAGE } from './UnavailableAction'

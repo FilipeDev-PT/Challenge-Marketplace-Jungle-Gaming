@@ -24,6 +24,7 @@ import {
   WalletsPage,
 } from '@/app/lazy-pages'
 import { queryClient } from '@/app/query-client'
+import { CartPageSkeleton, DetailSkeleton, HomePageSkeleton } from '@/components/kurio'
 import { Button } from '@/components/ui/button'
 import { parseAuthSearch } from '@/features/auth/model/parseAuthSearch'
 import { parseCatalogSearch } from '@/features/catalog/model/parseCatalogSearch'
@@ -31,13 +32,15 @@ import { AppShell } from '@/features/layout/AppShell'
 import { authFromForPath } from '@/shared/lib/navigation'
 import { getStoredToken } from '@/shared/lib/session-storage'
 
-function PageSuspense({ children }: { children: ReactNode }) {
+function PageSuspense({ children, fallback }: { children: ReactNode; fallback?: ReactNode }) {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-[40vh] items-center justify-center text-text-secondary">
-          Carregando…
-        </div>
+        fallback ?? (
+          <div className="flex min-h-[40vh] items-center justify-center text-text-secondary">
+            Carregando…
+          </div>
+        )
       }
     >
       {children}
@@ -136,7 +139,7 @@ const indexRoute = createRoute({
     const search = indexRoute.useSearch()
     const navigate = indexRoute.useNavigate()
     return (
-      <PageSuspense>
+      <PageSuspense fallback={<HomePageSkeleton />}>
         <HomePage
           search={search}
           onSearchChange={(next) => {
@@ -156,7 +159,7 @@ const nftRoute = createRoute({
   path: '/nfts/$nftId',
   component: function NftRoute() {
     return (
-      <PageSuspense>
+      <PageSuspense fallback={<DetailSkeleton />}>
         <NftDetailPage />
       </PageSuspense>
     )
@@ -168,7 +171,7 @@ const cartRoute = createRoute({
   path: '/cart',
   component: function CartRoute() {
     return (
-      <PageSuspense>
+      <PageSuspense fallback={<CartPageSkeleton />}>
         <CartPage />
       </PageSuspense>
     )

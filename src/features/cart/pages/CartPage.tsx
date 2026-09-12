@@ -5,9 +5,8 @@ import { useCart } from '@/features/cart/hooks/useCart'
 import { useCartMutations } from '@/features/cart/hooks/useCartMutations'
 import { useCartRelated } from '@/features/cart/hooks/useCartRelated'
 import { useQuote } from '@/features/cart/hooks/useQuote'
-import { CartSummarySkeleton, EmptyState, ErrorState, MarketBreadcrumb } from '@/components/kurio'
+import { CartPageSkeleton, EmptyState, ErrorState, MarketBreadcrumb } from '@/components/kurio'
 import { Button } from '@/components/ui/button'
-import { Skeleton } from '@/components/ui/skeleton'
 import { CART_ROW_GRID, CartLineItem } from '@/features/cart/components/CartLineItem'
 import { CartRelatedStrip } from '@/features/cart/components/CartRelatedStrip'
 import { CartSummary } from '@/features/cart/components/CartSummary'
@@ -33,16 +32,7 @@ export function CartPage() {
     void navigate({ to: '/checkout' })
   }
   if (cartQuery.isLoading) {
-    return (
-      <div className="grid gap-8 py-10 lg:grid-cols-[1.4fr_0.8fr]">
-        <div className="flex flex-col gap-4">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <Skeleton key={index} className="h-20 w-full" />
-          ))}
-        </div>
-        <CartSummarySkeleton />
-      </div>
-    )
+    return <CartPageSkeleton />
   }
   if (cartQuery.isError) {
     return (

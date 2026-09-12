@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ErrorState } from '@/components/kurio/ErrorState'
 import type { FilterSidebarValue } from '@/components/kurio/FilterSidebar'
-import { Skeleton } from '@/components/ui/skeleton'
+import { HomePageSkeleton } from '@/components/kurio/ShimmerSkeleton'
 import {
   catalogSearchDefaults,
   type CatalogSearch,
@@ -67,6 +67,12 @@ export function HomePage({ search, onSearchChange }: HomePageProps) {
       </div>
     )
   }
+  const isInitialLoad =
+    (!home && !homeQuery.isError) ||
+    (catalogQuery.isLoading && !catalogQuery.data && !catalogQuery.isError)
+  if (isInitialLoad) {
+    return <HomePageSkeleton />
+  }
   return (
     <div className="bg-ink-deep text-text-primary">
       <div className="flex flex-col gap-4 pt-2 md:gap-0 md:pt-0">
@@ -108,13 +114,7 @@ export function HomePage({ search, onSearchChange }: HomePageProps) {
             <BlogSection blog={home.blog} />
           </div>
         </>
-      ) : (
-        <div className="space-y-6 px-4 py-8 md:px-0" aria-busy="true" role="status">
-          <span className="sr-only">Carregando catálogo</span>
-          <Skeleton className="h-8 w-48" />
-          <Skeleton className="h-96 w-full" />
-        </div>
-      )}
+      ) : null}
     </div>
   )
 }

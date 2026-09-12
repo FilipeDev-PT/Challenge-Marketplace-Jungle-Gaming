@@ -60,11 +60,7 @@ export function NftDetailPage({
     )
   }
   if (nftQuery.isLoading) {
-    return (
-      <div className="py-2 md:py-10">
-        <DetailSkeleton lcpImageUrl="/assets/nfts/emerald-ape.webp" lcpImageAlt="Carregando NFT" />
-      </div>
-    )
+    return <DetailSkeleton lcpImageUrl="/assets/nfts/emerald-ape.webp" lcpImageAlt="Carregando NFT" />
   }
   if (nftQuery.isError) {
     const notFound = isApiError(nftQuery.error) && nftQuery.error.code === 'not_found'
